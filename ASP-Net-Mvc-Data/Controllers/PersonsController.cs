@@ -17,50 +17,36 @@ namespace ASP_Net_Mvc_Data.Controllers
 
         public IActionResult Index()
         {
-            
-
             var result = _peopleService.All();
 
             return View(result);
         }
 
-
-
         [HttpPost]
-        public IActionResult Index(PeopleViewModel peopleViewModel)
+        public IActionResult Index(PeopleViewModel filter)
         {
-            var result = _peopleService.FindBy(peopleViewModel);
+            var result = _peopleService.FindBy(filter);
 
                 return View(result);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public IActionResult Create(PeopleViewModel peopleViewModel)
+        public IActionResult Create(PeopleViewModel person)
         {
             if (ModelState.IsValid)
             {
-                _peopleService.Add(peopleViewModel.CreatePerson);
+                _peopleService.Add(person.CreatePerson);
 
                 return RedirectToAction(nameof(Index));
             }
-
-            
-            return RedirectToAction(nameof(Index));
+            return View("Index", person);
         }
 
-       
         public IActionResult Delete(string id)
         {
             _peopleService.Remove(int.Parse(id));
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

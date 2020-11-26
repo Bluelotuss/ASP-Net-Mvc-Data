@@ -33,31 +33,35 @@
     <input type="submit" value="Filter" />
 </form>
 
-<table>
-    @if (Model.Search != null)
-    {
-        <tr>
-            <td><h4>Search term</h4></td>
-            <td>@Model.Search</td>
-        </tr>
-    }
-
-    <tr>
-        <td>Name</td>
-        <td>PhoneNumber</td>
-        <td>City</td>
-        <td></td>
-    </tr>
+@if (Model.Search != null)
+{
+<div class="row">
+    <div class="col">
+        <h4>Search term</h4>
+    </div>
+    <div class="col">
+        <p>@Model.Search</p>
+    </div>
+</div>
+}
+<div class="row">
+    <div class="col">
+        <h3>Name</h3>
+    </div>
+    <div class="col">
+        <h3>Phone number</h3>
+    </div>
+    <div class="col">
+        <h3>City</h3>
+    </div>
+    <div class="col">
+        
+    </div>
+</div>
     @if (Model.PersonList != null)
     {
         @foreach (var item in Model.PersonList)
         {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.City</td>
-                <td><a asp-route-id="@item.Id" asp-action="Delete">Delete</a></td>
-            </tr>
+            <partial name="_PersonPartialView" model="item" />
         }
     }
-</table>

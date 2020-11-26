@@ -31,14 +31,9 @@ namespace ASP_Net_Mvc_Data.Controllers
         [HttpPost]
         public IActionResult Index(PeopleViewModel peopleViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _peopleService.FindBy(peopleViewModel);
+            var result = _peopleService.FindBy(peopleViewModel);
 
-                return View(peopleViewModel);
-            }
-
-            return RedirectToAction(nameof(Index));
+                return View(result);
         }
 
         [HttpGet]
@@ -48,16 +43,16 @@ namespace ASP_Net_Mvc_Data.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreatePersonViewModel createPersonViewModel)
+        public IActionResult Create(PeopleViewModel peopleViewModel)
         {
             if (ModelState.IsValid)
             {
-                _peopleService.Add(createPersonViewModel);
+                _peopleService.Add(peopleViewModel.CreatePerson);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(createPersonViewModel);
+            return View(peopleViewModel.CreatePerson);
         }
 
        

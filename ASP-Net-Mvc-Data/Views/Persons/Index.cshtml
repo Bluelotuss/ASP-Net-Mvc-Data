@@ -27,13 +27,21 @@
 <form asp-action="Index" method="post">
     <h4>Search on persons</h4>
 
-    <label asp-for="Search"></label>
+    <label asp-for="Search" value="Search term"></label>
     <input asp-for="Search" />
 
     <input type="submit" value="Filter" />
 </form>
 
 <table>
+    @if (Model.Search != null)
+    {
+        <tr>
+            <td><h4>Search term</h4></td>
+            <td>@Model.Search</td>
+        </tr>
+    }
+
     <tr>
         <td>Name</td>
         <td>PhoneNumber</td>

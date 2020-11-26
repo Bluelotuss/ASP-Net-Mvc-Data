@@ -26,11 +26,8 @@ namespace ASP_Net_Mvc_Data.Models.Services
         {
             PeopleViewModel pvm = new PeopleViewModel();
 
-            if(search.Search == null)
-            {
-                return pvm;
-            } else
-            { 
+            pvm.Search = search.Search;
+            
             foreach (Person person in _peopleRepo.Read())
             {
             if (person.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase) || person.City.Contains(search.Search, StringComparison.OrdinalIgnoreCase))
@@ -38,7 +35,7 @@ namespace ASP_Net_Mvc_Data.Models.Services
                         pvm.PersonList.Add(person);
             }
             }
-            }
+            
             return pvm;
         }
 

@@ -17,16 +17,14 @@ namespace ASP_Net_Mvc_Data.Controllers
 
         public IActionResult Index()
         {
+            
 
-            return View(_peopleService.All());
+            var result = _peopleService.All();
+
+            return View(result);
         }
 
 
-        [HttpGet]
-        public IActionResult Search()
-        {
-            return View();
-        }
 
         [HttpPost]
         public IActionResult Index(PeopleViewModel peopleViewModel)
@@ -52,7 +50,8 @@ namespace ASP_Net_Mvc_Data.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(peopleViewModel.CreatePerson);
+            
+            return RedirectToAction(nameof(Index));
         }
 
        

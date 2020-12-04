@@ -64,7 +64,7 @@ namespace ASP_Net_Mvc_Data.Controllers
         {
              if (_peopleService.Remove(int.Parse(id)))
             {
-                return new EmptyResult();
+                return Ok();
             } else
             {
                 return NotFound(); //404
@@ -72,9 +72,9 @@ namespace ASP_Net_Mvc_Data.Controllers
         }
 
         [HttpGet]           //Is this necessary for get methods?
-        public IActionResult AjaxEdit(string id)
+        public IActionResult AjaxEdit(int id)
         {
-            Person person = _peopleService.FindBy(int.Parse(id));
+            Person person = _peopleService.FindBy(id);
 
             return PartialView("_EditPersonAjaxPartialView", person);
         }

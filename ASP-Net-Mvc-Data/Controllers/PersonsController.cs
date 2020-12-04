@@ -14,7 +14,6 @@ namespace ASP_Net_Mvc_Data.Controllers
     {
         private IPeopleService _peopleService = new PeopleService();
 
-
         public IActionResult Index()
         {
             var result = _peopleService.All();
@@ -48,5 +47,26 @@ namespace ASP_Net_Mvc_Data.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+       
+        /*public IActionResult AjaxFindByCityOrName(string filter)
+        {
+            
+
+            PeopleViewModel peopleViewModel = new PeopleViewModel();
+
+            peopleViewModel.Search = filter;
+
+            PeopleViewModel newSearch = _peopleService.FindBy(peopleViewModel);
+
+            if (newSearch == null)
+            {
+                return NotFound(); //404
+            }
+            else
+            {
+                return PartialView("_ListPersonPartialView", newSearch);
+            }
+        }*/
     }
 }

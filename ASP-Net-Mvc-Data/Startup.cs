@@ -47,6 +47,16 @@ namespace ASP_Net_Mvc_Data
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "AjaxDelete",
+                    pattern: "AjaxDelete/{id?}",
+                    defaults: new { controller = "AjaxPersons", action = "AjaxDelete" });
+
+                endpoints.MapControllerRoute(
+                    name: "AjaxFilter",
+                    pattern: "AjaxFindByCityOrName/{filter?}",
+                    defaults: new { controller = "AjaxPersons", action = "AjaxFindByCityOrName" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

@@ -53,7 +53,16 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public bool Delete(Person person)
         {
-            return personList.Remove(person);
+            Person findPerson = Read(person.Id);
+            personList.Remove(person);
+
+            if (findPerson != null)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }

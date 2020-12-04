@@ -1,0 +1,9 @@
+﻿@model PeopleViewModel
+
+@if (Model.PersonList != null)
+{
+    @foreach (var item in Model.PersonList)
+    {
+        <partial name="_PersonPartialView" model="item" />
+    }
+}

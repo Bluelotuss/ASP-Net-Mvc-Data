@@ -1,6 +1,6 @@
 ﻿@model Person
 
-<div class="row">
+<div class="row" id="@("personid" + Model.Id)">
     <div class="col">
         <p>@Model.Name</p>
     </div>
@@ -11,6 +11,33 @@
         <p>@Model.City</p>
     </div>
     <div class="col">
-        <p><a asp-route-id="@Model.Id" asp-action="Delete">Delete</a></p>
+        <a class="btn btn-danger"
+           asp-route-id="@Model.Id"
+           asp-controller="AjaxPersons"
+           asp-action="AjaxDelete"
+           onclick="GetDelete(event, '@Url.Action("AjaxDelete", "AjaxPersons")')">Delete</a>
+        <a class="btn btn-success"
+           asp-route-id="@Model.Id"
+           asp-controller="AjaxPersons"
+           asp-action="AjaxEdit"
+           onclick="GetEdit(event, '@Url.Action("AjaxEdit", "AjaxPersons", new { id = Model.Id})')">Edit</a>
     </div>
 </div>
+
+
+@*<button onclick="GetCreatePersonForm('@Url.Action("CreateForm", "AjaxPersons")')" id="btn-person-create">Add Person to list</button>
+
+
+<div class="row">
+    <div class="col-12">
+        <h3>Search on persons</h3>
+        <input id="searchInput" />
+        <a class="btn btn-info"
+           asp-controller="Persons"
+           asp-action="AjaxFindByCityOrName"
+           data-target="environment-container"
+           onclick="FindByCityOrName(event, '@Url.Action("AjaxFindByCityOrName", "Persons")')">Find by city or name</a>
+
+        <div id="environment-container"></div>
+    </div>
+</div>*@

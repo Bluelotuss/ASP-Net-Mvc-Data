@@ -1,0 +1,49 @@
+﻿@model PeopleViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h1>Add person to list</h1>
+
+<div class="row" id="createPersonDiv">
+    <button onclick="GetCreatePersonForm('@Url.Action("CreateForm", "AjaxPersons")')" id="btn-person-create">Add Person to list</button>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>Search on persons</h3>
+        <input id="searchInput" />
+        <a class="btn btn-info"
+           asp-controller="AjaxPersons"
+           asp-action="AjaxFindByCityOrName"
+           data-target="environment-container"
+           onclick="FindByCityOrName(event, '@Url.Action("AjaxFindByCityOrName", "AjaxPersons")')">Find by city or name</a>
+
+        <div id="environment-container"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col">
+                <h3>Name</h3>
+            </div>
+            <div class="col">
+                <h3>Phone number</h3>
+            </div>
+            <div class="col">
+                <h3>City</h3>
+            </div>
+            <div class="col">
+                <h3>Action</h3>
+            </div>
+        </div>
+        <div id="personsListDiv"></div>
+    </div>
+</div>
+
+
+<script src="~/js/PeopleUtil.js" asp-append-version="true"></script>

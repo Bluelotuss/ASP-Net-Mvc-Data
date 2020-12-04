@@ -7,7 +7,7 @@
 
 <h1>Add person to list</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post">  //onsubmit, trigga js metod. 
     <label asp-for="CreatePerson.Name"></label>
     <input asp-for="CreatePerson.Name" />
     <span asp-validation-for="CreatePerson.Name"></span>
@@ -32,6 +32,20 @@
 
     <input type="submit" value="Filter" />
 </form>
+
+<div class="row">
+    <div class="col-12">
+        <h3>Search on persons</h3>
+            <input id="searchInput" />
+        <a class="btn btn-info"
+           asp-controller="Persons"
+           asp-action="AjaxFindByCityOrName"
+           data-target="environment-container"
+           onclick="FindByCityOrName(event, '@Url.Action("AjaxFindByCityOrName", "Persons")')">Find by city or name</a>
+
+        <div id="environment-container"></div>
+    </div>
+</div>
 
 @if (Model.Search != null)
 {
@@ -65,3 +79,5 @@
             <partial name="_PersonPartialView" model="item" />
         }
     }
+
+<script src="~/js/PeopleUtil.js" asp-append-version="true"></script>

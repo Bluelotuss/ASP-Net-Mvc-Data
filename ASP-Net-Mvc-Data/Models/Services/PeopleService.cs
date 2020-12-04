@@ -27,15 +27,18 @@ namespace ASP_Net_Mvc_Data.Models.Services
             PeopleViewModel pvm = new PeopleViewModel();
 
             pvm.Search = search.Search;
-            
+
             foreach (Person person in _peopleRepo.Read())
             {
-            if (person.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase) || person.City.Contains(search.Search, StringComparison.OrdinalIgnoreCase))
-            {
-                        pvm.PersonList.Add(person);
+                if (search.Search == null)
+                {
+                    return pvm;
+                }
+                else if (person.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase) || person.City.Contains(search.Search, StringComparison.OrdinalIgnoreCase))
+                {
+                    pvm.PersonList.Add(person);
+                }
             }
-            }
-            
             return pvm;
         }
 

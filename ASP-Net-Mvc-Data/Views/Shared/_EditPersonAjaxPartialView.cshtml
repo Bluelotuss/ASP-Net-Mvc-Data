@@ -1,6 +1,6 @@
 ﻿@model Person
 
-<form onsubmit="PostEditPersonForm(event, this)" asp-controller="AjaxPersons" asp-action="AjaxEditForm" asp-route-id="@Model.Id">
+<form onsubmit="PostEditPersonForm(event, this, @Model.Id)" asp-controller="AjaxPersons" asp-action="AjaxEditForm" asp-route-id="@Model.Id">
     <h3>Update Person information</h3>
     <label asp-for="Name"></label>
     <input asp-for="Name" value="@Model.Name"/>

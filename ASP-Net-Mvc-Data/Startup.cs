@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASP_Net_Mvc_Data.Models.Data;
+using ASP_Net_Mvc_Data.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,9 @@ namespace ASP_Net_Mvc_Data
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>();
+            services.AddScoped<IPeopleService, PeopleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +51,20 @@ namespace ASP_Net_Mvc_Data
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "AjaxDelete",
-                    pattern: "AjaxDelete/{id?}",
-                    defaults: new { controller = "AjaxPersons", action = "AjaxDelete" });
+                //endpoints.MapControllerRoute(
+                //    name: "AjaxPage",
+                //    pattern: "AjaxPage/{id?}",
+                //    defaults: new { controller = "AjaxPersons", action = "AjaxPage" });
+
+                //endpoints.MapControllerRoute(
+                //    name: "AjaxNextPage",
+                //    pattern: "AjaxNextPage/{id?}",
+                //    defaults: new { controller = "AjaxPersons", action = "AjaxNextPage" });
+
+                //endpoints.MapControllerRoute(
+                //    name: "AjaxDelete",
+                //    pattern: "AjaxDelete/{id?}",
+                //    defaults: new { controller = "AjaxPersons", action = "AjaxDelete" });
 
                 endpoints.MapControllerRoute(
                     name: "AjaxFilter",

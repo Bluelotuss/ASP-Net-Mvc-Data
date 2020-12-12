@@ -13,5 +13,6 @@ namespace ASP_Net_Mvc_Data.Models.Services
         public Person FindBy(int id);
         public Person Edit(int id, Person person);
         public bool Remove(int id);
+        public PeopleViewModel PageList(int currentPage, int recordsPerPage, int numOfPageItems);
     }
 }

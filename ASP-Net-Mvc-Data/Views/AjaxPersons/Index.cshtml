@@ -42,6 +42,33 @@
             </div>
         </div>
         <div id="personsListDiv"></div>
+        <div class="col" id="page_btn" style="visibility: hidden">
+            <a class="btn btn-info"
+                id="prev_page_btn"
+                style="visibility: hidden"
+                asp-route-id="1"
+                asp-action="AjaxPrevPage"
+                onclick="PrevPage(event, '@Url.Action("AjaxPrevPage", "AjaxPersons")')">Prev</a>
+            <a class="btn btn-info"
+               id="next_page_btn"
+               style="visibility: hidden"
+               asp-route-id="2"
+               asp-action="AjaxNextPage"
+               onclick="NextPage(event, '@Url.Action("AjaxNextPage", "AjaxPersons")')">Next</a>
+            <div id="page_numbers" style="visibility: hidden">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="data_num_pages">
+
+        </div>
+        <div id="data_num_items">
+
+        </div>
     </div>
 </div>
 

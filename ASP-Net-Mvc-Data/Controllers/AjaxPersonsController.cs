@@ -5,13 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASP_Net_Mvc_Data.Models;
 using ASP_Net_Mvc_Data.Models.Services;
+using Microsoft.Extensions.Logging;
 
 namespace ASP_Net_Mvc_Data.Controllers
 {
     public class AjaxPersonsController : Controller
     {
-        private IPeopleService _peopleService = new PeopleService();
-        
+        //private IPeopleService _peopleService = new PeopleService();
+
+        private readonly IPeopleService _peopleService;
+        private readonly ILogger _logger;
+
+        public AjaxPersonsController(IPeopleService peopleService, ILogger<AjaxPersonsController> logger)
+        {
+            _peopleService = peopleService;
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -82,11 +92,12 @@ namespace ASP_Net_Mvc_Data.Controllers
         [HttpPost]
         public IActionResult AjaxEditForm(Person person, string id)
         {
-            CreatePersonViewModel createPersonViewModel = new CreatePersonViewModel();
+            CreatePersonViewModel createPersonViewModel = new CreatePersonViewModel() {
 
-            createPersonViewModel.Name = person.Name;
-            createPersonViewModel.PhoneNumber = person.PhoneNumber;
-            createPersonViewModel.City = person.City;
+                Name = person.Name,
+                PhoneNumber = person.PhoneNumber,
+                City = person.City
+        };
 
             if (TryValidateModel(createPersonViewModel))
             {
@@ -98,6 +109,69 @@ namespace ASP_Net_Mvc_Data.Controllers
             Response.StatusCode = 400;
 
             return PartialView("_EditPersonAjaxPartialView", person);
+        }
+
+        public IActionResult AjaxNextPage(int currentPage, int numOfPages, int recordsPerPage)
+        {
+            PeopleViewModel allPeople = _peopleService.All();
+            PeopleViewModel newList = new PeopleViewModel();
+
+            var rangeIndex = (currentPage * recordsPerPage) - 3;
+
+            var numOfListItems = allPeople.PersonList.Count;
+
+            if (numOfPages > currentPage)
+            {
+                var endCount = recordsPerPage;
+                var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+                foreach (Person person in result)
+                {
+                    newList.PersonList.Add(person);
+                }
+
+            }
+            else
+            { 
+
+            var endCountCalc = currentPage - 1;                     //To get right amount on page 3
+            var endCount = numOfListItems - (recordsPerPage * endCountCalc);
+
+            var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+            foreach (Person person in result)
+            {
+                newList.PersonList.Add(person);
+            }
+            }
+            return PartialView("_ListPersonPartialView", newList);
+        }
+
+        public IActionResult AjaxPrevPage(int currentPage, int numOfPages, int recordsPerPage)
+        {
+            PeopleViewModel allPeople = _peopleService.All();
+            PeopleViewModel newList = new PeopleViewModel();
+
+            var rangeIndex = (currentPage * recordsPerPage) - 3;
+
+            var numOfListItems = allPeople.PersonList.Count;
+
+
+            var result = allPeople.PersonList.GetRange(rangeIndex, recordsPerPage);
+
+            foreach (Person person in result)
+            {
+                newList.PersonList.Add(person);
+            }
+
+            return PartialView("_ListPersonPartialView", newList);
+        }
+
+        public IActionResult AjaxPage(int currentPage, int numOfPages, int recordsPerPage, int numOfPageItems)
+        {
+            PeopleViewModel newList = _peopleService.PageList(currentPage, recordsPerPage, numOfPageItems);
+
+            return PartialView("_ListPersonPartialView", newList);
         }
     }
 }

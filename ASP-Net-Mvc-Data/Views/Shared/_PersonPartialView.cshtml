@@ -23,21 +23,3 @@
            onclick="GetEdit(event, '@Url.Action("AjaxEdit", "AjaxPersons", new { id = Model.Id})')">Edit</a>
     </div>
 </div>
-
-
-@*<button onclick="GetCreatePersonForm('@Url.Action("CreateForm", "AjaxPersons")')" id="btn-person-create">Add Person to list</button>
-
-
-<div class="row">
-    <div class="col-12">
-        <h3>Search on persons</h3>
-        <input id="searchInput" />
-        <a class="btn btn-info"
-           asp-controller="Persons"
-           asp-action="AjaxFindByCityOrName"
-           data-target="environment-container"
-           onclick="FindByCityOrName(event, '@Url.Action("AjaxFindByCityOrName", "Persons")')">Find by city or name</a>
-
-        <div id="environment-container"></div>
-    </div>
-</div>*@

@@ -8,7 +8,14 @@ namespace ASP_Net_Mvc_Data.Models.Services
 {
     public class PeopleService : IPeopleService
     {
-        IPeopleRepo _peopleRepo = new InMemoryPeopleRepo();
+        private readonly IPeopleRepo _peopleRepo;
+
+        public PeopleService(IPeopleRepo peopleRepo)
+        {
+            _peopleRepo = peopleRepo;
+        }
+
+        //IPeopleRepo _peopleRepo = new InMemoryPeopleRepo();
 
         public Person Add(CreatePersonViewModel person)
         {
@@ -64,6 +71,65 @@ namespace ASP_Net_Mvc_Data.Models.Services
             {
                 return _peopleRepo.Delete(person);
             }
+        }
+
+        public PeopleViewModel PageList(int currentPage, int recordsPerPage, int numOfPageItems)
+        {
+            var allPeople = All();
+          
+            PeopleViewModel newList = new PeopleViewModel();
+
+            var numOfListItems = allPeople.PersonList.Count;
+
+            if (currentPage == 1 && numOfPageItems < 4)
+            {
+                var result = allPeople.PersonList.GetRange(0, numOfPageItems);
+
+                foreach (Person person in result)
+                {
+                    newList.PersonList.Add(person);
+                }
+                return newList;
+            } else if (currentPage == 1)
+            {
+                var result = allPeople.PersonList.GetRange(0, recordsPerPage);
+
+                foreach (Person person in result)
+                {
+                    newList.PersonList.Add(person);
+                }
+                return newList;
+            } else if (currentPage > 1)
+            {
+                var rangeIndex = (currentPage * recordsPerPage) - 3;
+
+                var endCount = numOfListItems - recordsPerPage;
+
+                if (endCount > recordsPerPage)
+                {
+                    endCount = recordsPerPage;
+
+                    var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+                    foreach (Person person in result)
+                    {
+                        newList.PersonList.Add(person);
+                    }
+                    return newList;
+                } else
+                { 
+
+                var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+                foreach (Person person in result)
+                {
+                    newList.PersonList.Add(person);
+                }
+                return newList;
+                }
+            }
+
+            return newList;
         }
     }
 }

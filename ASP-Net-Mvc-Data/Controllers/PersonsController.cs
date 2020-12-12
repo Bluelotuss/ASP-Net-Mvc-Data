@@ -12,7 +12,14 @@ namespace ASP_Net_Mvc_Data.Controllers
 {
     public class PersonsController : Controller
     {
-        private IPeopleService _peopleService = new PeopleService();
+        //private IPeopleService _peopleService = new PeopleService();
+
+        private readonly IPeopleService _peopleService;
+
+        public PersonsController(IPeopleService peopleService)
+        {
+            _peopleService = peopleService;
+        }
 
         public IActionResult Index()
         {

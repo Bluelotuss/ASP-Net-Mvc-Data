@@ -12,14 +12,14 @@ var data_num_items = document.getElementById("data_num_items");
 
 function FindByCityOrName(event, urlHelper) {
     event.preventDefault();
-    //console.log(event);
+                                                            //console.log(event);
     const anchorElement = event.target;
     const inputValue = $('#searchInput').val();
     //console.log(urlHelper);
     //console.log(anchorElement.attributes.href.value);
     divToReplace = $("#personsListDiv");
     //console.log(inputValue.length);
-
+    
     if (inputValue != 0) {
 
 

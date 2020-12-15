@@ -13,7 +13,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Person Create(string name, string phoneNumber, string city)
         {
-            Person person = new Person() { Id = ++idCounter, Name = name, PhoneNumber = phoneNumber, City = city };
+            Person person = new Person(++idCounter, name, phoneNumber, city);
             personList.Add(person);
             return person;
         }

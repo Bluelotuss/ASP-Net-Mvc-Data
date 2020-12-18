@@ -15,5 +15,6 @@ namespace ASP_Net_Mvc_Data.Models.Database
 
         //DbSet
         public DbSet<Person> PersonList { get; set; } //Will be tables in the database
+        public DbSet<City> CityList { get; set; }
     }
 }

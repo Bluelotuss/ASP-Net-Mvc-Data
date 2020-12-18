@@ -15,7 +15,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
             _peopleDbContext = peopleDbContext;
         }
 
-        public Person Create(string name, string phoneNumber, string city)
+        public Person Create(string name, string phoneNumber, City city)
         {
             Person person = new Person(name, phoneNumber, city);
 

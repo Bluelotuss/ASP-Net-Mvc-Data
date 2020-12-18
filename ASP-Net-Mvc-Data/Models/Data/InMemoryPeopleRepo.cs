@@ -11,7 +11,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         private static int idCounter = 0;
 
-        public Person Create(string name, string phoneNumber, string city)
+        public Person Create(string name, string phoneNumber, City city)
         {
             Person person = new Person(++idCounter, name, phoneNumber, city);
             personList.Add(person);

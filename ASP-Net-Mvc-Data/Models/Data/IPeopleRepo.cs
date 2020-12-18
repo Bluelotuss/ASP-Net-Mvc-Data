@@ -7,7 +7,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 {
     public interface IPeopleRepo
     {
-        Person Create(string name, string phoneNumber, string city);
+        Person Create(string name, string phoneNumber, City city);
         List<Person> Read();
         Person Read(int id);
         Person Update(Person person);

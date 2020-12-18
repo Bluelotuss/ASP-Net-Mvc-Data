@@ -27,10 +27,14 @@ namespace ASP_Net_Mvc_Data
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PeopleDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PeopleDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>(); //Container setting for my IoC.
+            //services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>(); //Container setting for my IoC.
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>(); //Container setting for my IoC.
             services.AddScoped<IPeopleService, PeopleService>();
+
+            services.AddScoped<ICityRepo, DatabaseCityRepo>();
+            services.AddScoped<ICityService, CityService>();
 
             services.AddMvc();
         }

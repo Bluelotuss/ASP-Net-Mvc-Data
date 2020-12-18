@@ -17,7 +17,6 @@ namespace ASP_Net_Mvc_Data.Models
 
         [Required(ErrorMessage = "Name Required")]
         [Display(Name = "City")]
-        [StringLength(50, MinimumLength = 2, ErrorMessage = "Must be under 50 characters")]
-        public string City { get; set; }
+        public City City { get; set; }
     }
 }

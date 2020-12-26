@@ -15,9 +15,9 @@ namespace ASP_Net_Mvc_Data.Models.Data
             _cityDbContext = cityDbContext;
         }
 
-        public City Create(string cityName)
+        public City Create(string cityName, Country country)
         {
-            City city = new City(cityName);
+            City city = new City() { CityName = cityName, Country = country};
 
             _cityDbContext.CityList.Add(city);
 

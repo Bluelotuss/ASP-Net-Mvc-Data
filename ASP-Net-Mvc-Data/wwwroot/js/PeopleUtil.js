@@ -49,32 +49,35 @@ function GetCreatePersonForm(urlToCreateForm) {
 function PostCreatePersonForm(event, createForm) {
     event.preventDefault(); //prevent from loading form on new page
 
-                                                    //console.log("Create Form post:"), createForm); Would show the form loaded in console
-
-                                                    //console.log("action url:", createForm.action);
+    console.log("cityvalue:", createForm);    //console.log("Create Form post:"), createForm); Would show the form loaded in console
+    
+    
+                    //console.log("action url:" createForm.action);
                                                     //console.log("form value brand:", createForm.Brand.value);
 
-    $.post(createForm.action,                           //See previous console.log, $.post(URL,data,callback);
+    $.post(createForm.action,                               //See previous console.log, $.post(URL,data,callback);
         {
-            Name: createForm["Name"].value,             //variant of getting the form value
+            Name: createForm["Name"].value,                 //variant of getting the form value
             PhoneNumber: createForm.PhoneNumber.value,
-            City: createForm.City.value
+            City: {
+                Id: createForm.City_Id.value
+            }
         },
         function (data) {
             $("#personsListDiv").append(data);
             $("#createPersonDiv").html(createBtn);               //document.getElementById("createPersonDiv").innerHTML = createBtn;
 
         }).fail(function (badForm) {
-                                                                    //console.log("badForm: ", badForm);
+                                                                          //console.log("badForm: ", badForm);
             $("#createPersonDiv").html(badForm.responseText);
         });
 
-    page_item++;
-    num_of_pages = NumberOfPages();
-    Pagination();
+    //page_item++;
+    //num_of_pages = NumberOfPages();
+    //Pagination();
 
-    data_num_pages.innerHTML = "<p>Number of pages: " + num_of_pages + "</p>";
-    data_num_items.innerHTML = "<p>Number of items: " + page_item + "</p>";
+    //data_num_pages.innerHTML = "<p>Number of pages: " + num_of_pages + "</p>";
+    //data_num_items.innerHTML = "<p>Number of items: " + page_item + "</p>";
     
 };
 

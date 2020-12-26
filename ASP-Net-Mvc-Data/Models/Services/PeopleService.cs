@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ASP_Net_Mvc_Data.Models.Data;
+using ASP_Net_Mvc_Data.Models.ViewModels;
 
 namespace ASP_Net_Mvc_Data.Models.Services
 {
@@ -41,7 +42,7 @@ namespace ASP_Net_Mvc_Data.Models.Services
                 {
                     return pvm;
                 }
-                else if (person.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase) || person.City.Contains(search.Search, StringComparison.OrdinalIgnoreCase))
+                else if (person.Name.Contains(search.Search, StringComparison.OrdinalIgnoreCase))
                 {
                     pvm.PersonList.Add(person);
                 }

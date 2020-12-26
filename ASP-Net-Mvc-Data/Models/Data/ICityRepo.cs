@@ -7,7 +7,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 {
     public interface ICityRepo
     {
-        City Create(string cityName);
+        City Create(string cityName, Country country);
         List<City> Read();
         City Read(int id);
         City Update(City cityName);

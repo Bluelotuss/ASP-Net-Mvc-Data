@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ASP_Net_Mvc_Data.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_Net_Mvc_Data.Models.Data
 {
@@ -37,7 +38,9 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public List<Person> Read()
         {
-            return _peopleDbContext.PersonList.ToList();
+            //return _peopleDbContext.PersonList.ToList();//Lazy loading (only Persons no city)
+            return _peopleDbContext.PersonList.Include(c => c.City)
+                .Include(k => k.City.Country).ToList();//Eager loading (cities and persons)
         }
 
         public Person Read(int id)

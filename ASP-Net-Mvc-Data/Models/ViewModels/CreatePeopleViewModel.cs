@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASP_Net_Mvc_Data.Models.ViewModels
-{   
-    public class CreatePersonViewModel
+{
+    public class CreatePeopleViewModel
     {
         [Required(ErrorMessage = "Name Required")]
         [Display(Name = "Your Name")]
@@ -23,5 +25,7 @@ namespace ASP_Net_Mvc_Data.Models.ViewModels
         public Country Country { get; set; }
 
         public List<Country> CountryList { get; set; }
+
+        public List<Person> PersonList { get; set; }
     }
 }

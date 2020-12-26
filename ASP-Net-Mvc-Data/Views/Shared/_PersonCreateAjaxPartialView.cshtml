@@ -1,4 +1,4 @@
-﻿@model CreatePersonViewModel
+﻿@model ASP_Net_Mvc_Data.Models.ViewModels.CreatePersonViewModel
 
 <form onsubmit="PostCreatePersonForm(event, this)" asp-controller="AjaxPersons" asp-action="AjaxCreateForm">
     <h3>Create</h3>
@@ -11,7 +11,12 @@
     <span class="text-danger" asp-validation-for="PhoneNumber"></span>
     <br />
     <label asp-for="City"></label>
-    <input asp-for="City" />
+    <select asp-for="City.Id">
+        @foreach (var item in Model.CityList)
+        {
+            <option value="@item.Id">@item.CityName</option>
+        }
+    </select>
     <span class="text-danger" asp-validation-for="City"></span>
     <br />
     <input class="btn btn-success" type="submit" value="Create" />

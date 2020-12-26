@@ -1,4 +1,4 @@
-﻿@model PeopleViewModel
+﻿@model ASP_Net_Mvc_Data.Models.ViewModels.PeopleViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,7 +7,8 @@
 
 <h1>Add person to list</h1>
 
-<form asp-action="Create" method="post">  //onsubmit, trigga js metod. 
+<form asp-action="Create" method="post">
+    @*onsubmit, trigga js metod.*@ 
     <label asp-for="CreatePerson.Name"></label>
     <input asp-for="CreatePerson.Name" />
     <span asp-validation-for="CreatePerson.Name"></span>

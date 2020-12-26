@@ -27,7 +27,20 @@ namespace ASP_Net_Mvc_Data
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PeopleDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContextPool<PeopleDbContext>(
+            //    dbContextOptions => dbContextOptions
+            //        .UseMySql(
+            //            Configuration.GetConnectionString("DefaultConnection"),
+            //            // Replace with your server version and type.
+            //            // For common usages, see pull request #1233.
+            //            new MySqlServerVersion(new Version(8, 0, 22)), // use MariaDbServerVersion for MariaDB
+            //            mySqlOptions => mySqlOptions
+            //                .CharSetBehavior(CharSetBehavior.NeverAppend))
+            //);
+
+
+            services.AddDbContext<PeopleDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
+                ));
 
             //services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>(); //Container setting for my IoC.
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>(); //Container setting for my IoC.
@@ -36,7 +49,12 @@ namespace ASP_Net_Mvc_Data
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
             services.AddScoped<ICityService, CityService>();
 
+            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
+            services.AddScoped<ICountryService, CountryService>();
+
             services.AddMvc();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

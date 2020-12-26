@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASP_Net_Mvc_Data.Models.ViewModels;
 
 namespace ASP_Net_Mvc_Data.Models.Services
 {
@@ -10,7 +11,7 @@ namespace ASP_Net_Mvc_Data.Models.Services
         public City Add(CreateCityViewModel createCityViewModel);
         public List<City> All();
         public City FindBy(int id);
-        public City Edit(int id, CreateCityViewModel city);
+        public City Edit(int id, City city);
         public bool Remove(int id);
     }
 }

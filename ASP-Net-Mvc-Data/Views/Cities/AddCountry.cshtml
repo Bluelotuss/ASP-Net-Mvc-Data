@@ -1,16 +1,23 @@
-﻿@model ASP_Net_Mvc_Data.Models.ViewModels.CreateCityViewModel
+﻿@model ASP_Net_Mvc_Data.Models.ViewModels.AddCountryViewModel
 
-<h3>CreateCityViewModel</h3>
+<h3>AddCountryToCityViewModel</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="AddCountry">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="CityName" class="control-label"></label>
-                <input asp-for="CityName" class="form-control" />
-                <span asp-validation-for="CityName" class="text-danger"></span>
+                <label asp-for="City" class="control-label"></label>
+                <select asp-for="City.Id" class="form-control">
+                    @foreach (var item in Model.CityList)
+                    {
+                        <option value="@item.Id">@item.CityName</option>
+                    }
+                </select>
+                <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Country" class="control-label"></label>
                 <select asp-for="Country.Id" class="form-control">
@@ -27,6 +34,3 @@
         </form>
     </div>
 </div>
-
-
-@*What is form-control, ModelOnly and why form-group?*@

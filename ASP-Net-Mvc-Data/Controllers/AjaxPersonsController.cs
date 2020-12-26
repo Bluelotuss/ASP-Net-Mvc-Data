@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ASP_Net_Mvc_Data.Models;
 using ASP_Net_Mvc_Data.Models.Services;
 using Microsoft.Extensions.Logging;
+using ASP_Net_Mvc_Data.Models.ViewModels;
 
 namespace ASP_Net_Mvc_Data.Controllers
 {
@@ -14,11 +15,13 @@ namespace ASP_Net_Mvc_Data.Controllers
         //private IPeopleService _peopleService = new PeopleService();
 
         private readonly IPeopleService _peopleService;
+        private readonly ICityService _cityService;
         private readonly ILogger _logger;
 
-        public AjaxPersonsController(IPeopleService peopleService, ILogger<AjaxPersonsController> logger)
+        public AjaxPersonsController(IPeopleService peopleService, ICityService cityService, ILogger<AjaxPersonsController> logger)
         {
             _peopleService = peopleService;
+            _cityService = cityService;
             _logger = logger;
         }
 
@@ -49,129 +52,136 @@ namespace ASP_Net_Mvc_Data.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult CreateForm()
-        {
-            return PartialView("_PersonCreateAjaxPartialView");
-        }
+        //[HttpGet]
+        //public IActionResult CreateForm()
+        //{
+        //    CreatePersonViewModel createPersonViewModel = new CreatePersonViewModel();
+        //    createPersonViewModel.CityList = _cityService.All();
+        //    return PartialView("_PersonCreateAjaxPartialView", createPersonViewModel);
+        //}
 
-        [HttpPost]
-        public IActionResult AjaxCreateForm(CreatePersonViewModel personViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                Person person = _peopleService.Add(personViewModel);
+        //[HttpPost]
+        //public IActionResult AjaxCreateForm(CreatePersonViewModel personViewModel)
+        //{
+        //    City city = _cityService.FindBy(personViewModel.City.Id);
 
-                return PartialView("_PersonPartialView", person);
-            }
-
-            Response.StatusCode = 400;
-
-            return PartialView("_PersonCreateAjaxPartialView", personViewModel);
-        }
-
-        public IActionResult AjaxDelete(string id)
-        {
-             if (_peopleService.Remove(int.Parse(id)))
-            {
-                return Ok();
-            } else
-            {
-                return NotFound(); //404
-            }
-        }
-
-        [HttpGet]           //Is this necessary for get methods?
-        public IActionResult AjaxEdit(int id)
-        {
-            Person person = _peopleService.FindBy(id);
-
-            return PartialView("_EditPersonAjaxPartialView", person);
-        }
-
-        [HttpPost]
-        public IActionResult AjaxEditForm(Person person, string id)
-        {
-            CreatePersonViewModel createPersonViewModel = new CreatePersonViewModel() {
-
-                Name = person.Name,
-                PhoneNumber = person.PhoneNumber,
-                City = person.City
-        };
-
-            if (TryValidateModel(createPersonViewModel))
-            {
-                Person editedPerson = _peopleService.Edit(int.Parse(id), person);
-
-                return PartialView("_PersonPartialView", editedPerson);
-            }
-
-            Response.StatusCode = 400;
-
-            return PartialView("_EditPersonAjaxPartialView", person);
-        }
-
-        public IActionResult AjaxNextPage(int currentPage, int numOfPages, int recordsPerPage)
-        {
-            PeopleViewModel allPeople = _peopleService.All();
-            PeopleViewModel newList = new PeopleViewModel();
-
-            var rangeIndex = (currentPage * recordsPerPage) - 3;
-
-            var numOfListItems = allPeople.PersonList.Count;
-
-            if (numOfPages > currentPage)
-            {
-                var endCount = recordsPerPage;
-                var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
-
-                foreach (Person person in result)
-                {
-                    newList.PersonList.Add(person);
-                }
-
-            }
-            else
-            { 
-
-            var endCountCalc = currentPage - 1;                     //To get right amount on page 3
-            var endCount = numOfListItems - (recordsPerPage * endCountCalc);
-
-            var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
-
-            foreach (Person person in result)
-            {
-                newList.PersonList.Add(person);
-            }
-            }
-            return PartialView("_ListPersonPartialView", newList);
-        }
-
-        public IActionResult AjaxPrevPage(int currentPage, int numOfPages, int recordsPerPage)
-        {
-            PeopleViewModel allPeople = _peopleService.All();
-            PeopleViewModel newList = new PeopleViewModel();
-
-            var rangeIndex = (currentPage * recordsPerPage) - 3;
-
-            var numOfListItems = allPeople.PersonList.Count;
+        //    personViewModel.City = city;
 
 
-            var result = allPeople.PersonList.GetRange(rangeIndex, recordsPerPage);
+        //    if (ModelState.IsValid)
+        //    {
+        //        Person person = _peopleService.Add(personViewModel);
 
-            foreach (Person person in result)
-            {
-                newList.PersonList.Add(person);
-            }
+        //        return PartialView("_PersonPartialView", person);
+        //    }
 
-            return PartialView("_ListPersonPartialView", newList);
-        }
+        //    Response.StatusCode = 400;
 
-        public IActionResult AjaxPage(int currentPage, int numOfPages, int recordsPerPage, int numOfPageItems)
-        {
-            PeopleViewModel newList = _peopleService.PageList(currentPage, recordsPerPage, numOfPageItems);
+        //    return PartialView("_PersonCreateAjaxPartialView", personViewModel);
+        //}
 
-            return PartialView("_ListPersonPartialView", newList);
-        }
+        //public IActionResult AjaxDelete(string id)
+        //{
+        //     if (_peopleService.Remove(int.Parse(id)))
+        //    {
+        //        return Ok();
+        //    } else
+        //    {
+        //        return NotFound(); //404
+        //    }
+        //}
+
+        //[HttpGet]           //Is this necessary for get methods?
+        //public IActionResult AjaxEdit(int id)
+        //{
+        //    Person person = _peopleService.FindBy(id);
+
+        //    return PartialView("_EditPersonAjaxPartialView", person);
+        //}
+
+        //[HttpPost]
+        //public IActionResult AjaxEditForm(Person person, string id)
+        //{
+        //    CreatePersonViewModel createPersonViewModel = new CreatePersonViewModel() {
+
+        //        Name = person.Name,
+        //        PhoneNumber = person.PhoneNumber,
+        //        City = person.City
+        //};
+
+        //    if (TryValidateModel(createPersonViewModel))
+        //    {
+        //        Person editedPerson = _peopleService.Edit(int.Parse(id), person);
+
+        //        return PartialView("_PersonPartialView", editedPerson);
+        //    }
+
+    //        Response.StatusCode = 400;
+
+    //        return PartialView("_EditPersonAjaxPartialView", person);
+    //    }
+
+    //    public IActionResult AjaxNextPage(int currentPage, int numOfPages, int recordsPerPage)
+    //    {
+    //        PeopleViewModel allPeople = _peopleService.All();
+    //        PeopleViewModel newList = new PeopleViewModel();
+
+    //        var rangeIndex = (currentPage * recordsPerPage) - 3;
+
+    //        var numOfListItems = allPeople.PersonList.Count;
+
+    //        if (numOfPages > currentPage)
+    //        {
+    //            var endCount = recordsPerPage;
+    //            var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+    //            foreach (Person person in result)
+    //            {
+    //                newList.PersonList.Add(person);
+    //            }
+
+    //        }
+    //        else
+    //        { 
+
+    //        var endCountCalc = currentPage - 1;                     //To get right amount on page 3
+    //        var endCount = numOfListItems - (recordsPerPage * endCountCalc);
+
+    //        var result = allPeople.PersonList.GetRange(rangeIndex, endCount);
+
+    //        foreach (Person person in result)
+    //        {
+    //            newList.PersonList.Add(person);
+    //        }
+    //        }
+    //        return PartialView("_ListPersonPartialView", newList);
+    //    }
+
+    //    public IActionResult AjaxPrevPage(int currentPage, int numOfPages, int recordsPerPage)
+    //    {
+    //        PeopleViewModel allPeople = _peopleService.All();
+    //        PeopleViewModel newList = new PeopleViewModel();
+
+    //        var rangeIndex = (currentPage * recordsPerPage) - 3;
+
+    //        var numOfListItems = allPeople.PersonList.Count;
+
+
+    //        var result = allPeople.PersonList.GetRange(rangeIndex, recordsPerPage);
+
+    //        foreach (Person person in result)
+    //        {
+    //            newList.PersonList.Add(person);
+    //        }
+
+    //        return PartialView("_ListPersonPartialView", newList);
+    //    }
+
+    //    public IActionResult AjaxPage(int currentPage, int numOfPages, int recordsPerPage, int numOfPageItems)
+    //    {
+    //        PeopleViewModel newList = _peopleService.PageList(currentPage, recordsPerPage, numOfPageItems);
+
+    //        return PartialView("_ListPersonPartialView", newList);
+    //    }
     }
 }

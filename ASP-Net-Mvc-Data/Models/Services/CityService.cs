@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using ASP_Net_Mvc_Data.Models.Data;
+using ASP_Net_Mvc_Data.Models.ViewModels;
 
 namespace ASP_Net_Mvc_Data.Models.Services
 {
-    public class CityService
+    public class CityService : ICityService
     {
         private readonly ICityRepo _cityRepo;
 
@@ -15,7 +16,7 @@ namespace ASP_Net_Mvc_Data.Models.Services
 
         public City Add(CreateCityViewModel createCityViewModel)
         {
-            return _cityRepo.Create(createCityViewModel.CityName);
+            return _cityRepo.Create(createCityViewModel.CityName, createCityViewModel.Country);
         }
 
         public List<City> All()
@@ -28,7 +29,7 @@ namespace ASP_Net_Mvc_Data.Models.Services
             return _cityRepo.Read(id);
         }
 
-        public City Edit(int id, CreateCityViewModel city)
+        public City Edit(int id, City city)
         {
             City editedCity = new City() { Id = id, CityName = city.CityName };
             return _cityRepo.Update(editedCity);

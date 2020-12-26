@@ -1,4 +1,44 @@
-﻿@model PeopleViewModel
+﻿@model IEnumerable<ASP_Net_Mvc_Data.Models.City>
+@*What is Ienumerable?*@
 @{
     ViewData["Title"] = "Index";
 }
+
+<p>
+    <a asp-action="Create">Create new city</a>
+</p>
+
+<p>
+    <a asp-action="AddCountry">Add Country to City</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country.CountryName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.CountryName)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

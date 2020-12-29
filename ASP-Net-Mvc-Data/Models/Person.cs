@@ -30,5 +30,7 @@ namespace ASP_Net_Mvc_Data.Models
         {
             Id = id;
         }
+
+        public List<PersonLanguage> PersonLanguageList { get; set; }
     }
 }

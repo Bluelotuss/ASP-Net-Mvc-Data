@@ -17,5 +17,7 @@ namespace ASP_Net_Mvc_Data.Models.Database
         public DbSet<Person> PersonList { get; set; } //Will be tables in the database
         public DbSet<City> CityList { get; set; }
         public DbSet<Country> CountryList { get; set; }
+        public DbSet<Language> LanguageList { get; set; }
+        public DbSet<PersonLanguage> PersonLanguageList { get; set; }
     }
 }

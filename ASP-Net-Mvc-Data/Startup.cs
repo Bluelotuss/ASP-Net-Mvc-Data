@@ -52,6 +52,9 @@ namespace ASP_Net_Mvc_Data
             services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
             services.AddScoped<ICountryService, CountryService>();
 
+            services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
+            services.AddScoped<ILanguageService, LanguageService>();
+
             services.AddMvc();
 
             

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ASP_Net_Mvc_Data.Models.Language>
+@*What is Ienumerable?*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create new language</a>
+</p>
+
+<p>
+    <a asp-action="AddLanguageToPerson">Add language to person</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LanguageTitle)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LanguageTitle)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

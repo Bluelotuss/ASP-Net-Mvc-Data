@@ -32,12 +32,21 @@ namespace ASP_Net_Mvc_Data.Models.Services
 
         public Language Edit(int id, Language language)
         {
-            Language editedLanguage = new Language() { }
+            Language editedLanguage = new Language() { Id = id, LanguageTitle = language.LanguageTitle };
+            return _languageRepo.Update(editedLanguage);
         }
          
         public bool Remove(int id)
         {
-
+            Language language = _languageRepo.Read(id);
+            if (language == null)
+            {
+                return false;
+            }
+            else
+            {
+                return _languageRepo.Delete(language);
+            }
         }
     }
 }

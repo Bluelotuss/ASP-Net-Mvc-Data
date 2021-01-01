@@ -3,15 +3,17 @@ using System;
 using ASP_Net_Mvc_Data.Models.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ASP_Net_Mvc_Data.Migrations
 {
     [DbContext(typeof(PeopleDbContext))]
-    partial class PeopleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201229135442_addedLanguage")]
+    partial class addedLanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,7 @@ namespace ASP_Net_Mvc_Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City");
+                    b.ToTable("CityList");
                 });
 
             modelBuilder.Entity("ASP_Net_Mvc_Data.Models.Country", b =>
@@ -51,7 +53,7 @@ namespace ASP_Net_Mvc_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("CountryList");
                 });
 
             modelBuilder.Entity("ASP_Net_Mvc_Data.Models.Language", b =>
@@ -71,7 +73,7 @@ namespace ASP_Net_Mvc_Data.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Language");
+                    b.ToTable("LanguageList");
                 });
 
             modelBuilder.Entity("ASP_Net_Mvc_Data.Models.Person", b =>
@@ -94,7 +96,7 @@ namespace ASP_Net_Mvc_Data.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("People");
+                    b.ToTable("PersonList");
                 });
 
             modelBuilder.Entity("ASP_Net_Mvc_Data.Models.PersonLanguage", b =>
@@ -116,7 +118,7 @@ namespace ASP_Net_Mvc_Data.Migrations
 
                     b.HasIndex("PersonID");
 
-                    b.ToTable("PersonLanguage");
+                    b.ToTable("PersonLanguageList");
                 });
 
             modelBuilder.Entity("ASP_Net_Mvc_Data.Models.City", b =>

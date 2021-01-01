@@ -1,0 +1,21 @@
+﻿@model ASP_Net_Mvc_Data.Models.ViewModels.CreateLanguageViewModel
+
+<h3>CreateCountryViewModel</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LanguageTitle" class="control-label"></label>
+                <input asp-for="LanguageTitle" class="form-control" />
+                <span asp-validation-for="LanguageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*What is form-control, ModelOnly and why form-group?*@

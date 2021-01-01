@@ -19,7 +19,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
         {
             Country country = new Country() { CountryName = countryName};
 
-            _countryDbContext.CountryList.Add(country);
+            _countryDbContext.Country.Add(country);
 
             _countryDbContext.SaveChanges();
 
@@ -28,7 +28,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public bool Delete(Country country)
         {
-            _countryDbContext.CountryList.Remove(country);
+            _countryDbContext.Country.Remove(country);
 
             var changes = _countryDbContext.SaveChanges();
 
@@ -37,12 +37,12 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public List<Country> Read()
         {
-            return _countryDbContext.CountryList.ToList();
+            return _countryDbContext.Country.ToList();
         }
 
         public Country Read(int id)
         {
-            var country = _countryDbContext.CountryList.Find(id);
+            var country = _countryDbContext.Country.Find(id);
 
             if (country != null)
             {
@@ -54,7 +54,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Country Update(Country country)
         {
-            var countryToUpdate = _countryDbContext.CountryList.Where(x => x.Id == country.Id).FirstOrDefault();
+            var countryToUpdate = _countryDbContext.Country.Where(x => x.Id == country.Id).FirstOrDefault();
 
             if (countryToUpdate == null)
             {

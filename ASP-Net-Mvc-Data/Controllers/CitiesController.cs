@@ -20,7 +20,6 @@ namespace ASP_Net_Mvc_Data.Controllers
             _countryService = countryService;
         }
 
-        // GET: /<controller>/
         public ActionResult Index()                 //Why not IAction?
         {
             return View(_cityService.All());

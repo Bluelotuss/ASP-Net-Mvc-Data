@@ -12,6 +12,7 @@ namespace ASP_Net_Mvc_Data.Models
         public string PhoneNumber { get; set; }
 
         public City City { get; set; }
+        public List<PersonLanguage> PersonLanguageList { get; set; }
 
         public Person() { }                     //Varför har jag en tom ctor?
 
@@ -30,7 +31,5 @@ namespace ASP_Net_Mvc_Data.Models
         {
             Id = id;
         }
-
-        public List<PersonLanguage> PersonLanguageList { get; set; }
     }
 }

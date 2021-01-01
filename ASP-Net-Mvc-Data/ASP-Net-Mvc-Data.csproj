@@ -15,6 +15,7 @@
     <Folder Include="Views\Cities\" />
     <Folder Include="Views\People\" />
     <Folder Include="Views\Countries\" />
+    <Folder Include="Views\Languages\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />

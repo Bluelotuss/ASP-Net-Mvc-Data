@@ -23,5 +23,7 @@ namespace ASP_Net_Mvc_Data.Models.ViewModels
         public Country Country { get; set; }
 
         public List<Country> CountryList { get; set; }
+
+        //public List<Language> LanguageList { get; set; }
     }
 }

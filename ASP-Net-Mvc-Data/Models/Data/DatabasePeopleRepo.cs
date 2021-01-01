@@ -20,7 +20,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
         {
             Person person = new Person(name, phoneNumber, city);
 
-            _peopleDbContext.PersonList.Add(person);
+            _peopleDbContext.People.Add(person);
 
             _peopleDbContext.SaveChanges();
 
@@ -29,7 +29,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public bool Delete(Person person)
         {
-            _peopleDbContext.PersonList.Remove(person);
+            _peopleDbContext.People.Remove(person);
 
             var changes = _peopleDbContext.SaveChanges();
 
@@ -39,13 +39,13 @@ namespace ASP_Net_Mvc_Data.Models.Data
         public List<Person> Read()
         {
             //return _peopleDbContext.PersonList.ToList();//Lazy loading (only Persons no city)
-            return _peopleDbContext.PersonList.Include(c => c.City)
+            return _peopleDbContext.People.Include(c => c.City)
                 .Include(k => k.City.Country).ToList();//Eager loading (cities and persons)
         }
 
         public Person Read(int id)
         {
-            var person = _peopleDbContext.PersonList.Find(id);
+            var person = _peopleDbContext.People.Find(id);
 
             if (person != null)
             {
@@ -57,7 +57,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Person Update(Person person)
         {
-            var personToUpdate = _peopleDbContext.PersonList.Where(x => x.Id == person.Id).FirstOrDefault();
+            var personToUpdate = _peopleDbContext.People.Where(x => x.Id == person.Id).FirstOrDefault();
             
             if (personToUpdate == null)
             {

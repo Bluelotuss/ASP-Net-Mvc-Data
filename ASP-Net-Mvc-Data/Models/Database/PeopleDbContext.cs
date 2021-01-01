@@ -14,10 +14,16 @@ namespace ASP_Net_Mvc_Data.Models.Database
 
 
         //DbSet
-        public DbSet<Person> PersonList { get; set; } //Will be tables in the database
-        public DbSet<City> CityList { get; set; }
-        public DbSet<Country> CountryList { get; set; }
-        public DbSet<Language> LanguageList { get; set; }
-        public DbSet<PersonLanguage> PersonLanguageList { get; set; }
+        public DbSet<Person> People { get; set; } //Will be tables in the database
+        public DbSet<City> City { get; set; }
+        public DbSet<Country> Country { get; set; }
+        public DbSet<Language> Language { get; set; }
+        public DbSet<PersonLanguage> PersonLanguage { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<PersonLanguage>()
+        //        .HasKey(c => new { c.PersonID, c.LanguageID });
+        //}
     }
 }

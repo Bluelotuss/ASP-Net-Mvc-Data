@@ -18,7 +18,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Language Create(Language language)
         {
-            _languageDbContext.LanguageList.Add(language);
+            _languageDbContext.Language.Add(language);
 
             _languageDbContext.SaveChanges();
 
@@ -27,12 +27,12 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public List<Language> Read()
         {
-            return _languageDbContext.LanguageList.ToList();
+            return _languageDbContext.Language.ToList();
         }
 
         public Language Read(int id)
         {
-            var language = _languageDbContext.LanguageList.Find(id);
+            var language = _languageDbContext.Language.Find(id);
 
             if (language != null)
             {
@@ -44,7 +44,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Language Update(Language language)
         {
-            var languageToUpdate = _languageDbContext.LanguageList.Where(x => x.Id == language.Id).FirstOrDefault();
+            var languageToUpdate = _languageDbContext.Language.Where(x => x.Id == language.Id).FirstOrDefault();
 
             if (languageToUpdate == null)
             {
@@ -61,7 +61,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public bool Delete(Language language)
         {
-            _languageDbContext.LanguageList.Remove(language);
+            _languageDbContext.Language.Remove(language);
 
             var changes = _languageDbContext.SaveChanges();
 

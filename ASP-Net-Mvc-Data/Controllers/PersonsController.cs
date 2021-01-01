@@ -53,6 +53,9 @@ namespace ASP_Net_Mvc_Data.Controllers
         {
             _peopleService.Remove(int.Parse(id));
 
+            //Testing branches
+            //Testing
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -21,5 +21,21 @@ namespace ASP_Net_Mvc_Data.Models.ViewModels
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
+
+        [Required]
+        [StringLength(18, MinimumLength = 4)]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(30,
+            MinimumLength = 6,
+            ErrorMessage = "Password must atleast contain a uppercase letter, lowecase letter, digit and symbol.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required]
+        [Compare("Password")]
+        [DataType(DataType.Password)]
+        public string ControlPassword { get; set; }
     }
 }

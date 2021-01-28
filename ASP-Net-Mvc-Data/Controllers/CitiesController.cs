@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using ASP_Net_Mvc_Data.Models;
 using ASP_Net_Mvc_Data.Models.Services;
 using ASP_Net_Mvc_Data.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP_Net_Mvc_Data.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private readonly ICityService _cityService;

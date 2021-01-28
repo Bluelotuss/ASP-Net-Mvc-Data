@@ -28,26 +28,29 @@ namespace ASP_Net_Mvc_Data.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            LoginViewModel loginViewModel = new LoginViewModel();
+            return View(loginViewModel);
         }
 
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken] // Validating preferable for login.
-        public async Task<IActionResult> Login(string userName, string password)    //Create viewmodel
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)    //Create viewmodel
         {
-            var result = await _signInManager.PasswordSignInAsync(userName, password, false, false); // username, password, presistlogin, lockout
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, false, false); // username, password, presistlogin, lockout
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                /*if (result.IsLockedOut)
+                {
+
+                }*/
+                ViewBag.Msg = "Failed to login";
             }
-            /*if (result.IsLockedOut)
-            {
-
-            }*/
-
-            ViewBag.Msg = "Failed to login";
 
             return View();
         }
@@ -63,10 +66,10 @@ namespace ASP_Net_Mvc_Data.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp(string userName, string password, SignUpViewModel signUpViewModel)    //Create viewmodel
+        public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)    //Create viewmodel
         {
             AppUser appUser = new AppUser();
-            appUser.UserName = userName;
+            appUser.UserName = signUpViewModel.UserName;
 
             appUser.FirstName = signUpViewModel.FirstName;
             appUser.LastName = signUpViewModel.LastName;
@@ -74,7 +77,7 @@ namespace ASP_Net_Mvc_Data.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(appUser, password);
+                var result = await _userManager.CreateAsync(appUser, signUpViewModel.Password);
 
                 if (result.Succeeded)
                 {
@@ -87,5 +90,14 @@ namespace ASP_Net_Mvc_Data.Controllers
 
             return View(signUpViewModel);
         }
+
+        //[Authorize] not needed here because the controller is set to demand this.
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //Change Password/Username ....
     }
 }

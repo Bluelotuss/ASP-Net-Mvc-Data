@@ -19,6 +19,7 @@
     <Folder Include="Views\PersonLanguage\" />
     <Folder Include="Models\Identity\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />

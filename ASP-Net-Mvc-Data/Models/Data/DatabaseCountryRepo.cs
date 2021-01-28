@@ -8,9 +8,9 @@ namespace ASP_Net_Mvc_Data.Models.Data
 {
     public class DatabaseCountryRepo : ICountryRepo
     {
-        private readonly PeopleDbContext _countryDbContext;
+        private readonly IdentityPeopleDbContext _countryDbContext;
 
-        public DatabaseCountryRepo(PeopleDbContext countryDbContext)
+        public DatabaseCountryRepo(IdentityPeopleDbContext countryDbContext)
         {
             _countryDbContext = countryDbContext;
         }

@@ -16,6 +16,9 @@
     <Folder Include="Views\People\" />
     <Folder Include="Views\Countries\" />
     <Folder Include="Views\Languages\" />
+    <Folder Include="Views\PersonLanguage\" />
+    <Folder Include="Models\Identity\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
@@ -25,6 +28,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="RegPeopleDB.db-wal" />

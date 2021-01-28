@@ -8,9 +8,9 @@ namespace ASP_Net_Mvc_Data.Models.Data
 {
     public class DatabaseCityRepo : ICityRepo
     {
-        private readonly PeopleDbContext _cityDbContext;
+        private readonly IdentityPeopleDbContext _cityDbContext;
 
-        public DatabaseCityRepo(PeopleDbContext cityDbContext)
+        public DatabaseCityRepo(IdentityPeopleDbContext cityDbContext)
         {
             _cityDbContext = cityDbContext;
         }

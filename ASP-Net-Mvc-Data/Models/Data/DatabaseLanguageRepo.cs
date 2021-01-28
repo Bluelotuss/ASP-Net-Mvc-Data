@@ -9,9 +9,9 @@ namespace ASP_Net_Mvc_Data.Models.Data
 {
     public class DatabaseLanguageRepo : ILanguageRepo
     {
-        private readonly PeopleDbContext _languageDbContext;
+        private readonly IdentityPeopleDbContext _languageDbContext;
 
-        public DatabaseLanguageRepo(PeopleDbContext languageDbContext)
+        public DatabaseLanguageRepo(IdentityPeopleDbContext languageDbContext)
         {
             _languageDbContext = languageDbContext;
         }

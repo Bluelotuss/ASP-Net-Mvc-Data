@@ -11,5 +11,16 @@ namespace ASP_Net_Mvc_Data.Models
 
         public Person Person { get; set; }
         public Language Language { get; set; }
+
+        public PersonLanguage()
+        {
+
+        }
+
+        public PersonLanguage(Person person, Language language)
+        {
+            Person = person;
+            Language = language;
+        }
     }
 }

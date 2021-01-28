@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASP_Net_Mvc_Data.Models.Data;
 using ASP_Net_Mvc_Data.Models.Database;
+using ASP_Net_Mvc_Data.Models.Identity;
 using ASP_Net_Mvc_Data.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,8 +40,11 @@ namespace ASP_Net_Mvc_Data
             //                .CharSetBehavior(CharSetBehavior.NeverAppend))
             //);
 
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityPeopleDbContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddDbContext<PeopleDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
+            services.AddDbContext<IdentityPeopleDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
                 ));
 
             //services.AddScoped<IPeopleRepo, InMemoryPeopleRepo>(); //Container setting for my IoC.
@@ -54,6 +59,9 @@ namespace ASP_Net_Mvc_Data
 
             services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
             services.AddScoped<ILanguageService, LanguageService>();
+
+            services.AddScoped<IPersonLanguageRepo, DatabasePersonLanguageRepo>();
+            services.AddScoped<IPersonLanguageService, PersonLanguageService>();
 
             services.AddMvc();
 
@@ -74,9 +82,12 @@ namespace ASP_Net_Mvc_Data
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); // Allows www.root folder to be accessed.
 
             app.UseRouting();
+
+            app.UseAuthentication(); //User login?
+            app.UseAuthorization(); //User has role?
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ASP_Net_Mvc_Data.Models.ViewModels.PersonLanguageViewModel>
+@{
+    ViewData["Title"] = "PersonLanguageIndex";
+}
+
+<h3>PersonLanguage Index</h3>
+
+<p>
+    <a asp-action="AddLanguageToPerson">Add language to person</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h3>Name</h3>
+            </th>
+            <th>
+                <h3>Languages</h3>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonName)
+                </td>
+                <td>
+                    @String.Join(", ", item.ListOfLanguages)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PersonLanguageId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PersonLanguageId }) |
+                    @*@Html.ActionLink("DeleteToDo", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

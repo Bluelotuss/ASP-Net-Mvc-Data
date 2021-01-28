@@ -6,6 +6,7 @@ namespace ASP_Net_Mvc_Data.Models
 {
     public class Person
     {
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }

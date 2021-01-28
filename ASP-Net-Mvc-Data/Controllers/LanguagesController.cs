@@ -14,13 +14,11 @@ namespace ASP_Net_Mvc_Data.Controllers
     {
         private readonly ILanguageService _languageService;
         private readonly IPeopleService _peopleService;
-        private readonly PeopleDbContext _context;
 
-        public LanguagesController(ILanguageService languageService, IPeopleService peopleService, PeopleDbContext context)
+        public LanguagesController(ILanguageService languageService, IPeopleService peopleService)
         {
             _languageService = languageService;
             _peopleService = peopleService;
-            _context = context;
         }
 
         public ActionResult Index()
@@ -57,49 +55,6 @@ namespace ASP_Net_Mvc_Data.Controllers
             {
                 return View(createLanguageViewModel);
             }
-        }
-
-        public ActionResult AddLanguageToPerson()
-        {
-            PersonLanguageViewModel personLanguageViewModel = new PersonLanguageViewModel();
-            //PeopleViewModel peopleViewModel = new PeopleViewModel();
-
-            var resultPeopleViewModel = _peopleService.All();
-
-            personLanguageViewModel.PeopleList = resultPeopleViewModel.PersonList;
-            personLanguageViewModel.LanguageList = _languageService.All();
-
-            return View(personLanguageViewModel);
-        }
-
-        [HttpPost]
-        public ActionResult AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-            var personID = personLanguageViewModel.Person.Id;
-            var languageID = personLanguageViewModel.Language.Id;
-
-            var existingItems = _context.PersonLanguage
-                .Where(pl => pl.PersonID == personID)
-                .Where(pl => pl.LanguageID == languageID).ToList();
-
-            if (existingItems.Count == 0)
-            {
-                PersonLanguage newItem = new PersonLanguage
-                {
-                    Person = _context.People.Single(p => p.Id == personID),
-                    Language = _context.Language.Single(l => l.Id == languageID)
-                };
-
-                _context.PersonLanguage.Add(newItem);
-                _context.SaveChanges();
-                
-
-            }
-                return RedirectToAction(nameof(Index));
-            }
-            return RedirectToAction(nameof(Index));
         }
     }
 }

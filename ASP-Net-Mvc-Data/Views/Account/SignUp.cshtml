@@ -1,0 +1,37 @@
+﻿@model ASP_Net_Mvc_Data.Models.ViewModels.SignUpViewModel
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<h1>SignUp</h1>
+
+@if (ViewBag.Msg != null)
+{
+    <h3 style="color: red">@ViewBag.Msg</h3>
+}
+
+<form asp-action="SignUp" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DOB" class="control-label"></label>
+        <input asp-for="DOB" class="form-control" />
+        <span asp-validation-for="DOB" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="text" name="userName" value="" />
+    </div>
+    <div class="form-group">
+        <input type="password" name="password" value="" />
+    </div>
+    <input type="submit" value="Sign Up" class="btn btn-primary" />
+</form>

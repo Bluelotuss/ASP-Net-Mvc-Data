@@ -45,7 +45,7 @@ namespace ASP_Net_Mvc_Data.Models.Data
 
         public Person Read(int id)
         {
-            var person = _peopleDbContext.People.Find(id);
+            var person = _peopleDbContext.People.Include(c => c.City).Include(c => c.City.Country).SingleOrDefault(people => people.Id == id);
 
             if (person != null)
             {

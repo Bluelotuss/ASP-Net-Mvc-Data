@@ -65,7 +65,24 @@ namespace ASP_Net_Mvc_Data
 
             services.AddMvc();
 
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyAllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")//default URI for React(npm start)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+
+            services.AddSwaggerGen();
+
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +101,19 @@ namespace ASP_Net_Mvc_Data
             app.UseHttpsRedirection();
             app.UseStaticFiles(); // Allows www.root folder to be accessed.
 
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            //Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "React API V1");
+            });
+
             app.UseRouting();
+
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseAuthentication(); //User login?
             app.UseAuthorization(); //User has role?

@@ -73,6 +73,15 @@ namespace ASP_Net_Mvc_Data.Controllers
         [HttpPost]
         public IActionResult Post(CreatePersonViewModel createPersonViewModel)
         {
+            City city = _cityService.FindBy(createPersonViewModel.City.Id);
+
+            //Country country = _countryService.FindBy(createPersonViewModel.Country.Id);
+
+            //createPersonViewModel.City.Country = country;
+            createPersonViewModel.City = city;
+            
+
+
             if (ModelState.IsValid)
             {
                 Person person = _peopleService.Add(createPersonViewModel);
